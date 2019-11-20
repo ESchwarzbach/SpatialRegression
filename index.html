@@ -2555,6 +2555,100 @@ window.onload = function() {
 </script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #232629;
+    color: #7a7c7d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
+div.sourceCode
+  { color: #cfcfc2; background-color: #232629; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span. { color: #cfcfc2; } /* Normal */
+code span.al { color: #95da4c; } /* Alert */
+code span.an { color: #3f8058; } /* Annotation */
+code span.at { color: #2980b9; } /* Attribute */
+code span.bn { color: #f67400; } /* BaseN */
+code span.bu { color: #7f8c8d; } /* BuiltIn */
+code span.cf { color: #fdbc4b; } /* ControlFlow */
+code span.ch { color: #3daee9; } /* Char */
+code span.cn { color: #27aeae; } /* Constant */
+code span.co { color: #7a7c7d; } /* Comment */
+code span.cv { color: #7f8c8d; } /* CommentVar */
+code span.do { color: #a43340; } /* Documentation */
+code span.dt { color: #2980b9; } /* DataType */
+code span.dv { color: #f67400; } /* DecVal */
+code span.er { color: #da4453; } /* Error */
+code span.ex { color: #0099ff; } /* Extension */
+code span.fl { color: #f67400; } /* Float */
+code span.fu { color: #8e44ad; } /* Function */
+code span.im { color: #27ae60; } /* Import */
+code span.in { color: #c45b00; } /* Information */
+code span.kw { color: #cfcfc2; } /* Keyword */
+code span.op { color: #cfcfc2; } /* Operator */
+code span.ot { color: #27ae60; } /* Other */
+code span.pp { color: #27ae60; } /* Preprocessor */
+code span.re { color: #2980b9; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #da4453; } /* SpecialString */
+code span.st { color: #f44f4f; } /* String */
+code span.va { color: #27aeae; } /* Variable */
+code span.vs { color: #da4453; } /* VerbatimString */
+code span.wa { color: #da4453; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -2882,11 +2976,12 @@ text-align: center;
 ## Residual standard error: 5.633 on 47 degrees of freedom
 ## Multiple R-squared:  0.7867, Adjusted R-squared:  0.714 
 ## F-statistic: 10.83 on 16 and 47 DF,  p-value: 7.999e-11</code></pre>
+<p>From the OLS we can see that construction and unemployment are the two factors that are significant in this relationship.</p>
 </div>
 <div id="spatial-analysis-regression---contiguity" class="section level1">
 <h1><span class="header-section-number">2</span> Spatial Analysis Regression - Contiguity</h1>
 <p>Next, we can begin our spatial analysis regression by making a list of contiguity neighbors. We will use FIPS to do this, and use the Queens Case because it allows us to have neighbors created from lines and points.</p>
-<p>We can now perform a Moran’s Correlation and a LaGrange Multipliers Test. For this, our null hypothesis is that there is no spatial correlation between the residuals.</p>
+<p>We can now perform a Moran’s Correlation and a LaGrange Multipliers Test. For this, our null hypothesis is that there is no spatial correlation between the residuals. ## Moran’s Coreelation</p>
 <pre><code>## 
 ##  Global Moran I for regression residuals
 ## 
@@ -2899,6 +2994,9 @@ text-align: center;
 ## sample estimates:
 ## Observed Moran I      Expectation         Variance 
 ##     -0.040540057     -0.058515039      0.005322795</code></pre>
+<div id="lagrange-multipliers-test" class="section level2">
+<h2><span class="header-section-number">2.1</span> LaGrange Multipliers Test</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">lm.LMtests</span>(ols, cont.neighb, <span class="dt">test=</span><span class="st">&quot;all&quot;</span>)</a></code></pre></div>
 <pre><code>## 
 ##  Lagrange multiplier diagnostics for spatial dependence
 ## 
@@ -2944,6 +3042,9 @@ text-align: center;
 ## 
 ## SARMA = 12.385, df = 2, p-value = 0.002045</code></pre>
 <p>Because the p-value is not significant, this means that a spatial model may not be the best fit for this data. BUT because this is the assignment and we’re looking at spatial regressions, let’s do one anyways. Looking at the different models, the one that is most significant for this data is the RMLlag. Therefore, let’s run a spatial lag model.</p>
+</div>
+<div id="spatial-lag-model" class="section level2">
+<h2><span class="header-section-number">2.2</span> Spatial Lag Model</h2>
 <pre><code>## 
 ## Call:
 ## spatialreg::lagsarlm(formula = equation, data = la_pov, listw = cont.neighb)
@@ -2987,28 +3088,31 @@ text-align: center;
 ## LM test for residual autocorrelation
 ## test value: 5.2605, p-value: 0.021814</code></pre>
 <p>Now that we have the summary from this test, let’s look at the impact table.</p>
-<pre><code>##                         Direct   Indirect          Total
-## rural           0.034579381178 0.18794410 0.050161388381
-## urban           0.970073415821 0.92696591 0.957361190137
-## lnmanufacturing 0.988614295889 0.97147670 0.983367755069
-## lnag            0.739361810505 0.88097528 0.769100086938
-## lnretail        0.438076065442 0.49484370 0.438176364987
-## lnhealthss      0.615931633050 0.75439030 0.645258212885
-## lnconstruction  0.047547473202 0.15271407 0.048739741685
-## lnlesshs        0.025217151464 0.15413269 0.033035225114
-## lnunemployment  0.000002479211 0.05186818 0.000007624168
-## lnsinglemom     0.419955340293 0.51272111 0.434260853735
-## lnblack         0.740990191388 0.79592347 0.751143173870
-## lnhispanic      0.961539638605 0.95294390 0.985826762425
-## lnuninsured     0.884974851111 0.86829376 0.878261920238
-## lnincome_ratio  0.222629166435 0.36812283 0.248603084901
-## lnteenbirth     0.131561428519 0.29763218 0.159153225950
-## lnunmarried     0.336621412079 0.46506155 0.358470564737</code></pre>
-<p>Looking at the impact table, we see that the significant factors are rural, construction, less than a high school degree, and unemployment. These are the same significant factors that we saw above in the summary table.</p>
+<pre><code>##                        Direct  Indirect         Total
+## rural           0.03622066130 0.2016628 0.05681263554
+## urban           0.91980582061 0.9052675 0.91425973276
+## lnmanufacturing 0.94699615022 0.9589787 0.94968197956
+## lnag            0.80214343371 0.9310963 0.83670731380
+## lnretail        0.45921663813 0.5429096 0.47037751605
+## lnhealthss      0.62741627765 0.7754080 0.66506580779
+## lnconstruction  0.03714856150 0.1687851 0.04860294661
+## lnlesshs        0.00987902658 0.1536873 0.02193517788
+## lnunemployment  0.00001933567 0.0467086 0.00004287807
+## lnsinglemom     0.33624337908 0.4594384 0.35201646685
+## lnblack         0.75389091661 0.8181867 0.76710295280
+## lnhispanic      0.86954854775 0.9889865 0.90509679747
+## lnuninsured     0.80635956718 0.8742008 0.82384572456
+## lnincome_ratio  0.27034168054 0.3870019 0.28850394292
+## lnteenbirth     0.14493805265 0.2408839 0.14639073479
+## lnunmarried     0.37257757885 0.4635493 0.38383944621</code></pre>
+<p>Looking at the impact table, we see that the significant factors are construction, less than a high school degree, and unemployment. These are the same significant factors that we saw above in the summary table.</p>
+</div>
 </div>
 <div id="spatial-regression-analysis-using-k-nearest-neighbors" class="section level1">
 <h1><span class="header-section-number">3</span> Spatial Regression Analysis using K Nearest Neighbors</h1>
 <p>Now that we have a distance lag model created, we can use the summary function to look at the K=1 lag model.</p>
+<div id="distance-lag-model-for-k1" class="section level2">
+<h2><span class="header-section-number">3.1</span> Distance lag model for K=1</h2>
 <pre><code>## 
 ## Call:spatialreg::lagsarlm(formula = formula, data = data, listw = listw, 
 ##     na.action = na.action, Durbin = Durbin, type = type, method = method, 
@@ -3054,6 +3158,9 @@ text-align: center;
 ## LM test for residual autocorrelation
 ## test value: 4.5335, p-value: 0.033238</code></pre>
 <p>We can also create a distance error model and look at the summary table for K=1.</p>
+</div>
+<div id="distance-error-model-for-k1" class="section level2">
+<h2><span class="header-section-number">3.2</span> Distance error model for K=1</h2>
 <pre><code>## 
 ## Call:
 ## spatialreg::errorsarlm(formula = formula, data = data, listw = listw, 
@@ -3097,6 +3204,7 @@ text-align: center;
 ## Number of observations: 64 
 ## Number of parameters estimated: 19 
 ## AIC: 416.46, (AIC for lm: 419.14)</code></pre>
+</div>
 </div>
 <div id="creating-a-map-of-the-results" class="section level1">
 <h1><span class="header-section-number">4</span> Creating a map of the results</h1>
